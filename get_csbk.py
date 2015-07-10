@@ -21,23 +21,19 @@ try:
     content=content.replace(' ','')
     print "start to compile"
     
-    f=open(r'E:\code\spider\test.html','w')
-    f.write(content)
-    f.close
-    
     pattern=re.compile('jpg"\/>(.*?)<\/a><\/div><divclass="content">(.*?)<!--(.*?)'+
     '--><\/div><divclass="stats"><spanclass="stats-vote"><iclass="number">(.*?)<\/i>')
     
     items=re.findall(pattern,content)
     print "start to print "
     for item in items:
+        #去掉带图片的内容
         haveImg=re.search("img",item[2])
         if not haveImg:
             print item[0],item[2]
             print item[1]
             print item[3],"个赞"
             
-        
 except urllib2.URLError,e:
     if hasattr(e,"code"):
         print e.code
